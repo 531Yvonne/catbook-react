@@ -10,16 +10,16 @@ import "./App.css";
  * Define the "App" component as a function.
  */
 const App = () => {
-  return (
-    // <> is like a <div>, but won't show
-    // up in the DOM tree
-    <>
-      <NavBar />
-      <div className="App-container">
-        <Profile />
-      </div>
-    </>
-  );
+    return (
+        // <> is like a <div>, but won't show
+        // up in the DOM tree
+        <>
+            <NavBar />
+            <div className="App-container">
+                <Profile />
+            </div>
+        </>
+    );
 };
 
 export default App;
