@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { get } from "../../utilities";
-// TODO (step6): import SingleStory
-// TODO (step7): import SingleComment
-// TODO (step8): import NewComment
-// TODO (step9): import CommentsBlock
+import SingleStory from "./SingleStory";
+import SingleComment from "./SingleComment";
+import { NewComment } from "./NewPostInput";
+import CommentsBlock from "./CommentsBlock";
 
 import "./Card.css";
 
@@ -15,21 +15,32 @@ import "./Card.css";
  * @param {string} creator_name
  * @param {string} content of the story
  */
-const Card = () => {
-  // TODO (step6): define state to hold comments (refer to Feed)
+const Card = (props) => {
+    // TODO (step6): define state to hold comments (refer to Feed)
+    const [comments, setComments] = useState([]);
 
-  useEffect(() => {
-    // TODO (step6): implement a GET call to retrieve comments,
-    // and assign it to state
-  }, []);
+    useEffect(() => {
+        // Implement a GET call to retrieve comments, and assign it to state
+        get("/api/comment", { parent: props._id }).then(commentObjs => setComments(commentObjs))
+    }, []);
 
-  // TODO (step6): render a SingleStory using props,
-  // and render the comments from state (with JSON.stringify)
-  // from state using a map (refer to Feed)
-  // TODO (step7): map comments from state into SingleComment
-  // components (refer to Feed)
-  // TODO (step8): add in the NewComment component (refer to Feed)
-  // TODO (step9): use CommentsBlock
+    // let commentList = comments.map((comment => <SingleComment _id={comment._id} creator_name={comment.creator_name} content={comment.content} />));
+
+    // if (commentList.length === 0) {
+    //     commentList = "No Comments!"
+    // };
+
+    return (
+        <div className="Card-container">
+            <SingleStory _id={props._id} creator_name={props.creator_name} content={props.content} />
+
+            {/* <div className="Card-commentSection">{commentList}</div>
+            <NewComment storyId={props.storyId} /> */}
+            {/* Here use CommentsBlock instead */}
+
+            <CommentsBlock comments={comments} story={props._id} />
+        </div >
+    );
 };
 
 export default Card;
